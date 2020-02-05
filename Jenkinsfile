@@ -1,10 +1,12 @@
 pipeline {
-    agent { label 'docker' }
+    agent none
     stages {
         stage('build') {
+            agent {
+                docker { image 'terraform:0.12.8' }
+            }
             steps {
-                sh 'mvn --version'
-		sh 'mvn --help'
+             terraform commandArguments: 'help', commandName: 'terraform', label: ''
             }
         }
     }
